@@ -1,0 +1,40 @@
+body{
+  padding-top:80px;
+  word-wrap:break-word;
+}
+img{
+  height: 200px;
+}
+.fa-trash::before{
+  content: "\f014";
+}
+.form{
+  margin-left: 0%;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+.meals{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.logs{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.logAMeal{
+  display: flex;
+  flex-direction: column;
+}
+.logAMeal input, button{
+  width: 50%;
+}
+footer{
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 42%;
+}
