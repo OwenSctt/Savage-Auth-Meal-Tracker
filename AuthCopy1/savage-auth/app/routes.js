@@ -32,7 +32,8 @@ module.exports = function(app, passport, db) {
       db.collection('messages').save({
         name: req.body.name,
         msg: req.body.msg,
-        date: req.body.date
+        date: req.body.date,
+        thumbUp : 0 
       }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
@@ -42,12 +43,12 @@ module.exports = function(app, passport, db) {
 
     app.put('/messages', (req, res) => {
       db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg, date: req.body.date}, {
+      .findOneAndUpdate({name: req.body.name, date: req.body.date}, {
         $set: {
-          thumbUp:req.body.thumbUp + 1
+          thumbUp:req.body.thumbUp + 100
         }
       }, {
-        sort: {_id: -1},
+        sort: {_id: -1}, 
         upsert: true
       }, (err, result) => {
         if (err) return res.send(err)
@@ -56,9 +57,9 @@ module.exports = function(app, passport, db) {
     })
     app.put('/down', (req, res) => {
       db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg, date: req.body.date}, {
+      .findOneAndUpdate({name: req.body.name,  date: req.body.date}, {
         $set: {
-          thumbUp:req.body.thumbUp - 1
+          thumbUp:req.body.thumbUp - 100
         }
       }, {
         sort: {_id: -1},
@@ -70,7 +71,7 @@ module.exports = function(app, passport, db) {
     })
 
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg, date: req.body.date}, (err, result) => {
+      db.collection('messages').findOneAndDelete({name: req.body.name, date: req.body.date ,thumbUp:req.body.thumbUp}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
